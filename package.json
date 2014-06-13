@@ -1,0 +1,31 @@
+{
+  "name": "broccoli-sprite",
+  "version": "0.0.0",
+  "description": "Broccoli plugin that generates image sprites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/bguiz/broccoli-sprite"
+  },
+  "keywords": [
+    "broccoli",
+    "image",
+    "sprite",
+    "spritesheet",
+    "css"
+  ],
+  "author": "bguiz",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/bguiz/broccoli-sprite/issues"
+  },
+  "homepage": "https://github.com/bguiz/broccoli-sprite",
+  "dependencies": {
+    "mkdirp": "~0.5.0",
+    "broccoli-writer": "~0.1.1",
+    "node-sprite-generator": "~0.5.0"
+  }
+}
