@@ -2,6 +2,7 @@ var path = require('path');
 var mkdirp = require('mkdirp');
 var nodeSpriteGenerator = require('node-sprite-generator');
 var brocWriter = require('broccoli-writer');
+var rsvp = require('rsvp');
 
 var BroccoliSprite = function BroccoliSprite(inTree, options) {
   if (!(this instanceof BroccoliSprite)) {
@@ -28,6 +29,8 @@ BroccoliSprite.prototype.debugLog = function() {
 };
 BroccoliSprite.prototype.write = function(readTree, destDir) {
   var self = this;
+  self.debugLog('Running BroccoliSprite');
+
   return readTree(this.inTree).then(function (srcDir) {
     var files = self.options.src || [];
     var spritePath = path.join(destDir, self.options.spritePath);
@@ -38,17 +41,23 @@ BroccoliSprite.prototype.write = function(readTree, destDir) {
     nsgOptions.src = files;
     nsgOptions.spritePath = spritePath;
     nsgOptions.stylesheetPath = stylesheetPath;
-    self.debugLog('nsgOptions', nsgOptions);
-    nodeSpriteGenerator(nsgOptions, function (err) {
-        if (!err) {
-          self.debugLog('Sprite generated!');
-        }
-        else {
-          console.log('Sprite generation failed:', err);
-        }
-        self.debugLog('spritePath', spritePath);
-        self.debugLog('stylesheetPath', stylesheetPath);
+    self.debugLog('Options: ', nsgOptions);
+
+    var promise = new rsvp.Promise(function(resolvePromise, rejectPromise) {
+      nodeSpriteGenerator(nsgOptions, function (err) {
+          self.debugLog('spritePath', spritePath);
+          self.debugLog('stylesheetPath', stylesheetPath);
+          if (!err) {
+            self.debugLog('Sprite generated!');
+            resolvePromise(true);
+          }
+          else {
+            console.log('Sprite generation failed:', err);
+            rejectPromise(err);
+          }
+      });
     });
+    return promise;    
   });
 };
 
