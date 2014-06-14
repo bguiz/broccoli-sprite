@@ -15,10 +15,14 @@
     "image",
     "sprite",
     "spritesheet",
-    "css"
+    "css",
+    "broccoli-plugin"
   ],
-  "author": "bguiz",
-  "license": "GPLv3",
+  "author": "Brendan Graetz <redacted@my.email> (http://bguiz.com)",
+  "license": {
+    "type": "GPL v3",
+    "url": "http://opensource.org/licenses/GPL-3.0"
+  },
   "bugs": {
     "url": "https://github.com/bguiz/broccoli-sprite/issues"
   },
