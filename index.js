@@ -32,21 +32,25 @@ BroccoliSprite.prototype.write = function(readTree, destDir) {
   self.debugLog('Running BroccoliSprite');
 
   return readTree(this.inTree).then(function (srcDir) {
-    var files = self.options.src || [];
+    var files = (self.options.src || []).map(function(file) {
+      return srcDir+'/'+file;
+    });
+    self.debugLog('srcDir', srcDir);
+    self.debugLog('destDir', destDir);
+    self.debugLog('files', files);
     var spritePath = path.join(destDir, self.options.spritePath);
     var stylesheetPath = path.join(destDir, self.options.stylesheetPath);
     mkdirp.sync(path.dirname(spritePath));
     mkdirp.sync(path.dirname(stylesheetPath));
-    var nsgOptions = self.options;
+    var nsgOptions = JSON.parse(JSON.stringify(self.options)); //lazy way to deep clone
     nsgOptions.src = files;
     nsgOptions.spritePath = spritePath;
     nsgOptions.stylesheetPath = stylesheetPath;
     self.debugLog('Options: ', nsgOptions);
-
+    self.debugLog('spritePath', spritePath);
+    self.debugLog('stylesheetPath', stylesheetPath);
     var promise = new rsvp.Promise(function(resolvePromise, rejectPromise) {
-      nodeSpriteGenerator(nsgOptions, function (err) {
-          self.debugLog('spritePath', spritePath);
-          self.debugLog('stylesheetPath', stylesheetPath);
+      nodeSpriteGenerator(nsgOptions, function (err) {          
           if (!err) {
             self.debugLog('Sprite generated!');
             resolvePromise(true);
@@ -57,7 +61,7 @@ BroccoliSprite.prototype.write = function(readTree, destDir) {
           }
       });
     });
-    return promise;    
+    return promise;
   });
 };
 
