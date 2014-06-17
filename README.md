@@ -1,10 +1,13 @@
 # A BroccoliJs plugin for sprite generation
 
 Use this plugin in a project built using
-[BroccoliJs](https://github.com/broccolijs/broccoli) to add CSS image sprites to it.
+[BroccoliJs](https://github.com/broccolijs/broccoli) to add
+[CSS image sprites](http://css-tricks.com/css-sprites/) to it.
 Includes instructions for how to integrate into an
 [ember-cli](https://github.com/bguiz/broccoli-sprite) also included,
 and [direct support is planned](#time-line).
+
+Supported stylesheet formats: SCSS, SASS, LESS, Stylus, CSS
 
 [![broccoli-sprite NPM](https://nodei.co/npm/broccoli-sprite.png?compact=true)](https://github.com/bguiz/broccoli-sprite)
 
