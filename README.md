@@ -41,10 +41,16 @@ In `Brocfile.js`, add the following:
       stylesheet: 'css',
       stylesheetOptions: {
         prefix: 'sprite-',
+        spritePath: '/assets/sprites.png',
       },
     });
 
 &hellip; and be sure to merge `spritesTree` into the main tree.
+
+Note that it is important to specify `stylesheetOptions.spritePath`,
+as otherwise a relative path will be used,
+and this will not work with fingerprinting,
+which is enabled by default in when building with `environment=production`.
 
 ### Usage in `ember-cli` apps
 
@@ -92,6 +98,7 @@ In `Brocfile.js`:
         stylesheet: 'css',
         stylesheetOptions: {
           prefix: 'sprite-',
+          spritePath: '/assets/sprites.png',
         },
       },
     });
@@ -104,82 +111,26 @@ Include an additional CSS file.
 
 #### Option #3 - Single CSS File
 
-What we do here is extend `EmberApp` to override the `styles` method.
-This method requires quite a lot to be added to `Brocfile.js`,
-but it also means that `index.html` needs to reference just one CSS file.
-
-In `Brocfile.js`:
-
-    var memoize = require('lodash-node/modern/functions').memoize;
-    var pickFiles = require('broccoli-static-compiler');
-    var mergeTrees = require('broccoli-merge-trees');
-    var concatFiles = require('broccoli-concat');
-    var preprocessors = require('ember-cli/lib/preprocessors');
-    var preprocessCss = preprocessors.preprocessCss;
-    var preprocessMinifyCss = preprocessors.preprocessMinifyCss;
-
-    EmberApp.prototype.styles = memoize(function() {
-      console.log('EmberApp.prototype.styles extended');
-      var vendor = this._processedVendorTree();
-      var styles = pickFiles(this.trees.styles, {
-        srcDir: '/',
-        destDir: '/app/styles'
-      });
-      var stylesAndVendor = mergeTrees([
-        vendor,
-        styles
-      ], {
-        description: 'TreeMerger (stylesAndVendor)'
-      });
-      var processedStyles = preprocessCss(stylesAndVendor, '/app/styles', '/assets');
-      var vendorStyles    = concatFiles(stylesAndVendor, {
-        inputFiles: this.vendorStaticStyles,
-        outputFile: '/assets/vendor.css',
-        description: 'concatFiles - vendorStyles'
-      });
-      var spriteTree, spriteImageOnlyTree;
-      if (this.options.sprite) {
-        var appCssFile = 'assets/'+this.options.name+'.css';
-        console.log('appCssFile', appCssFile);
-        spriteTree = broccoliSprite('public', this.options.sprite);
-        var processedStylesAndSpritesTree = mergeTrees([processedStyles, spriteTree], {
-          description: 'mergeTrees - tmp processed styles and sprites',
-        });
-        processedStyles = concatFiles(processedStylesAndSpritesTree, {
-          inputFiles: [
-            this.options.sprite.stylesheetPath,
-            appCssFile,
-          ],
-          outputFile: '/'+appCssFile,
-          description: 'concatFiles - sprites and styles CSS only',
-        });
-        spriteImageOnlyTree = pickFiles(spriteTree, {
-          srcDir: '/',
-          destDir: '/',
-          files: ['**/*.png'],
-          description: 'pickFiles - sprite image only',
-        });
-      }
-      if (this.env === 'production' && this.options.minifyCSS.enabled === true) {
-        var options = this.options.minifyCSS.options || {};
-        processedStyles = preprocessMinifyCss(processedStyles, options);
-        vendorStyles    = preprocessMinifyCss(vendorStyles, options);
-      }
-      if (spriteImageOnlyTree) {
-        processedStyles = mergeTrees([
-            processedStyles,
-            spriteImageOnlyTree
-        ], {
-          description: 'mergeTrees - processed styles with sprite image',
-        });
-      }
-      return mergeTrees([
-          processedStyles,
-          vendorStyles
-        ], {
-          description: 'styles'
-        });
+    var app = new EmberApp({
+      /* ... */
+      sprite: {
+        src: [ 'public/images/sprites/*.png' ],
+        spritePath: 'assets/sprites.png',
+        stylesheetPath: 'assets/sprites.css',
+        stylesheet: 'css',
+        stylesheetOptions: {
+          prefix: 'sprite-',
+          spritePath: '/assets/sprites.png',
+        },
+      },
     });
+    var emberCliStylesOverride = require('broccoli-sprite/ember-cli-styles-override');
+    var preprocessors = require('ember-cli/lib/preprocessors');
+    emberCliStylesOverride(app, preprocessors);
+
+What we do here is extend `EmberApp` to override the `styles` method.
+The overridden method can be found in [`ember-cli-styles-override.js`](https://github.com/bguiz/broccoli-sprite/blob/master/ember-cli-styles-override.js),
+The `index.html` needs to reference just one CSS file.
 
 ## Configuration Options
 

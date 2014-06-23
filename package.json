@@ -1,18 +1,15 @@
 {
   "name": "broccoli-sprite",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Broccoli plugin for CSS image sprite generation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/bguiz/broccoli-sprite"
-  },
   "keywords": [
     "broccoli-plugin",
     "broccoli",
+    "ember-cli",
     "image-sprite",
     "image",
     "sprite",
@@ -28,12 +25,20 @@
     "type": "GPL v3",
     "url": "http://opensource.org/licenses/GPL-3.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/bguiz/broccoli-sprite"
+  },
   "bugs": {
     "url": "https://github.com/bguiz/broccoli-sprite/issues"
   },
   "homepage": "https://github.com/bguiz/broccoli-sprite",
   "dependencies": {
+    "broccoli-concat": "0.0.6",
+    "broccoli-merge-trees": "^0.1.4",
+    "broccoli-static-compiler": "^0.1.4",
     "broccoli-writer": "~0.1.1",
+    "lodash-node": "^2.4.1",
     "mkdirp": "~0.5.0",
     "node-sprite-generator": "~0.5.0",
     "rsvp": "^3.0.9"
