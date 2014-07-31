@@ -43,6 +43,8 @@ BroccoliSprite.prototype.write = function(readTree, destDir) {
     mkdirp.sync(path.dirname(spritePath));
     mkdirp.sync(path.dirname(stylesheetPath));
     var nsgOptions = JSON.parse(JSON.stringify(self.options)); //lazy way to deep clone
+    // stylesheet can be a function which is lost in JSON.stringify
+    nsgOptions.stylesheet = self.options.stylesheet;
     nsgOptions.src = files;
     nsgOptions.spritePath = spritePath;
     nsgOptions.stylesheetPath = stylesheetPath;
