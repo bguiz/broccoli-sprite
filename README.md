@@ -171,6 +171,15 @@ Notice that "public" is not repeated within these paths.
   - [x] Generated sprite images exported into `style` tree
   - [ ] Works in conjunction with registry plugin system, so that there is no need to extend `EmberApp` in `Brocfile.js`
 
+## Contributors
+
+Maintained by [bguiz](http://github.com/bguiz).
+
+Additional contributions from:
+
+- [Connorhd](http://github.com/Connorhd)
+- [harianus](http://github.com/harianus)
+
 ## Licence
 
 [GPL v3](http://opensource.org/licenses/GPL-3.0)
