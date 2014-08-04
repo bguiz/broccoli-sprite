@@ -1,6 +1,5 @@
 function emberCliStylesOverride(app, preprocessors) {
 
-    console.log('EmberCliStylesOverride', arguments);
     if (!app.options.sprite) {
         return;
     }
