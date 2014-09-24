@@ -52,7 +52,7 @@ BroccoliSprite.prototype.write = function(readTree, destDir) {
     self.debugLog('spritePath', spritePath);
     self.debugLog('stylesheetPath', stylesheetPath);
     var promise = new rsvp.Promise(function(resolvePromise, rejectPromise) {
-      nodeSpriteGenerator(nsgOptions, function (err) {          
+      nodeSpriteGenerator(nsgOptions, function (err) {
           if (!err) {
             self.debugLog('Sprite generated!');
             resolvePromise(true);
