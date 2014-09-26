@@ -100,6 +100,7 @@ Notice that "public" is not repeated within these paths.
   - [x] Generated sprite images exported into `style` tree
   - [x] Works in conjunction with registry plugin system, so that there is no need to extend `EmberApp` in `Brocfile.js`
     - Landed with [ember-sprite](https://github.com/bguiz/ember-sprite)
+- [x] Add caching to speed up incremental builds
 
 ## Contributors
 
