@@ -1,6 +1,6 @@
 {
   "name": "broccoli-sprite",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Broccoli plugin for CSS image sprite generation",
   "main": "index.js",
   "scripts": {
