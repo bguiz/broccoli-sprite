@@ -17,6 +17,7 @@ var BroccoliVectorSprite = function BroccoliVectorSprite(inTree, options) {
       this.options[key] = options[key];
     }
   }
+  self.debugLog('Running BroccoliVectorSprite');
 };
 
 //Using broccoli caching writer to avoid recompiling the sprite sheets each time
@@ -33,28 +34,30 @@ BroccoliVectorSprite.prototype.updateCache = function(srcDir, destDir) {
   var self = this;
   self.debugLog('Running BroccoliVectorSprite updateCache');
 
-  var files = (self.options.src || []).map(function(file) {
-    return srcDir+'/'+file;
-  });
-  self.debugLog('srcDir', srcDir);
-  self.debugLog('destDir', destDir);
-  self.debugLog('files', files);
+  // var files = (self.options.src || []).map(function(file) {
+  //   return srcDir+'/'+file;
+  // });
+  // self.debugLog('inputImageDir', inputImageDir);
+  // self.debugLog('outputCssDir', outputCssDir);
+  // self.debugLog('files', files);
   var svgSpriteOptions = JSON.parse(JSON.stringify(self.options)); //lazy way to deep clone
 
   //TODO do steps to prepare for svg-sprite
-  //e.g. mkdir rerquired folders within destDir, or parse/modify certain options
+  //e.g. mkdir required folders within destDir, or parse/modify certain options
 
   self.debugLog('Options: ', svgSpriteOptions);
   var promise = new rsvp.Promise(function(resolvePromise, rejectPromise) {
-    svgSprite(svgSpriteOptions, function (err) {
-        if (!err) {
-          self.debugLog('Sprite generated!');
-          resolvePromise(destDir);
-        }
-        else {
+    svgSprite.createSprite(
+      svgSpriteOptions.inputDir, 
+      svgSpriteOptions.outputDir, 
+      svgSpriteOptions, 
+      function (err, results) {
+        if (err) {
           self.debugLog('Sprite generation failed:', err);
-          rejectPromise(err);
+          return rejectPromise(err);
         }
+        self.debugLog('Sprite generated!');
+        resolvePromise(destDir);
     });
   });
   return promise;
