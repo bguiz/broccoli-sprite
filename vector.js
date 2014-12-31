@@ -17,7 +17,7 @@ var BroccoliVectorSprite = function BroccoliVectorSprite(inTree, options) {
       this.options[key] = options[key];
     }
   }
-  self.debugLog('Running BroccoliVectorSprite');
+  this.debugLog('Running BroccoliVectorSprite');
 };
 
 //Using broccoli caching writer to avoid recompiling the sprite sheets each time
