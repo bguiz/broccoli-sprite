@@ -102,6 +102,15 @@ Notice that "public" is not repeated within these paths.
     - Landed with [ember-sprite](https://github.com/bguiz/ember-sprite)
 - [x] Add caching to speed up incremental builds
 
+## Contributors
+
+Maintained by [bguiz](http://github.com/bguiz).
+
+Additional contributions from:
+
+- [Connorhd](http://github.com/Connorhd)
+- [harianus](http://github.com/harianus)
+
 ## Licence
 
 [GPL v3](http://opensource.org/licenses/GPL-3.0)
