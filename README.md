@@ -78,7 +78,7 @@ In an `ember-cli` app, this would most likely be `'public'`.
 These options are passed into `node-sprite-generator`,
 so [follow the options specified here](https://github.com/selaux/node-sprite-generator#options "node-sprite-generator options").
 
-There are a few things to note though:
+There are a few things to note:
 
 `src` is the full path, not the path within the tree.
 Notice that in the example above,
@@ -88,19 +88,6 @@ The same is **not** true for output paths though,
 `spritePath` and `stylesheetPath`,
 which must be specified relative to the tree.
 Notice that "public" is not repeated within these paths.
-
-## Time Line
-
-- [x] Make work with live-reload
-- [x] Make it work as an ember-cli registry plugin, so that there is no need to extend `EmberApp` in `Brocfile.js`
-  - [x] Dependent on ember-cli release where plugin registry is exposed. See [this issue](https://github.com/stefanpenner/ember-cli/issues/810),
-    - Reference example: [ember-cli-esnext](https://github.com/rjackson/ember-cli-esnext/blob/master/index.js)
-    - Landed with [ember-sprite](https://github.com/bguiz/ember-sprite)
-- [x] Integrate into `EmberApp.styles()` such that CSS for sprites is concatenated and minifed together with CSS of app
-  - [x] Generated sprite images exported into `style` tree
-  - [x] Works in conjunction with registry plugin system, so that there is no need to extend `EmberApp` in `Brocfile.js`
-    - Landed with [ember-sprite](https://github.com/bguiz/ember-sprite)
-- [x] Add caching to speed up incremental builds
 
 ## Contributors
 
