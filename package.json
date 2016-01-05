@@ -35,7 +35,6 @@
   "homepage": "https://github.com/bguiz/broccoli-sprite",
   "dependencies": {
     "broccoli-caching-writer": "^0.4.2",
-    "broccoli-concat": "0.0.6",
     "broccoli-merge-trees": "^0.1.4",
     "broccoli-static-compiler": "^0.1.4",
     "lodash-node": "^2.4.1",
