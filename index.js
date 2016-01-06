@@ -1,8 +1,10 @@
 var path = require('path');
+var fs = require('fs');
 var mkdirp = require('mkdirp');
 var nodeSpriteGenerator = require('node-sprite-generator');
 var brocCachingWriter  = require('broccoli-caching-writer');
 var rsvp = require('rsvp');
+var optiPng = require('optipng');
 
 var BroccoliSprite = function BroccoliSprite(inTree, options) {
   if (!(this instanceof BroccoliSprite)) {
@@ -54,7 +56,22 @@ BroccoliSprite.prototype.updateCache = function(srcDir, destDir) {
     nodeSpriteGenerator(nsgOptions, function (err) {
         if (!err) {
           self.debugLog('Sprite generated!');
-          resolvePromise(destDir);
+
+          // default to _not_ `optiping`ing the image
+          if (nsgOptions.optiping) {
+            var optiPinger = new optiPng(['-o7']);
+            var sourceStream = fs.createReadStream(spritePath);
+            var optiSpritePath = spritePath.replace(/\.png$/, '') + '-opti.png';
+            var destinationStream = fs.createWriteStream(optiSpritePath);
+
+            sourceStream.pipe(optiPinger).pipe(destinationStream).on('finish', function() {
+              fs.unlinkSync(spritePath);
+              fs.renameSync(optiSpritePath,spritePath);
+              resolvePromise(destDir);
+            });
+          } else {
+            resolvePromise(destDir);
+          }
         }
         else {
           self.debugLog('Sprite generation failed:', err);

@@ -15,8 +15,7 @@ Supported stylesheet formats: SCSS, SASS, LESS, Stylus, CSS
 
 ### Installation dependencies
 
-You will need to install at least one of the following,
-before installing `broccoli-sprite`.
+You may optionally install one of the following (before installing `broccoli-sprite`)
 
 - GraphicsMagick
   - On Ubuntu:
@@ -43,6 +42,7 @@ In `Brocfile.js`, add the following:
         prefix: 'sprite-',
         spritePath: '/assets/sprites.png',
       },
+      optiping: process.env.NODE_ENV === 'production'
     });
 
 &hellip; and be sure to merge `spritesTree` into the main tree.
@@ -76,7 +76,7 @@ In an `ember-cli` app, this would most likely be `'public'`.
 ### `options`
 
 These options are passed into `node-sprite-generator`,
-so [follow the options specified here](https://github.com/selaux/node-sprite-generator#options "node-sprite-generator options").
+so [follow the options specified here](https://github.com/selaux/node-sprite-generator#options "node-sprite-generator options"). You may also pass in `optiping`, which is read by [broccoli-sprite](https://github.com/bguiz/broccoli-sprite). If `true` then [optiping](http://optipng.sourceforge.net) compression will be applied to the generated sprites. This adds considerable build time, but may also drastically reduce your sprite file size.
 
 There are a few things to note:
 
@@ -97,6 +97,9 @@ Additional contributions from:
 
 - [Connorhd](http://github.com/Connorhd)
 - [harianus](http://github.com/harianus)
+- [filippovdaniil](https://github.com/filippovdaniil)
+- [jmonster](http://github.com/jmonster)
+- [Dhaulagiri](https://github.com/Dhaulagiri)
 
 ## Licence
 
