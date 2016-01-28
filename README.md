@@ -42,7 +42,7 @@ In `Brocfile.js`, add the following:
         prefix: 'sprite-',
         spritePath: '/assets/sprites.png',
       },
-      optiping: process.env.NODE_ENV === 'production'
+      optiping: (process.env.NODE_ENV === 'production'),
     });
 
 &hellip; and be sure to merge `spritesTree` into the main tree.
@@ -57,7 +57,8 @@ which is enabled by default in when building with `environment=production`.
 It used to be rather complicated, but now ember-cli's addon/ plugin system
 has more features, and thus it is really as simple as `npm install`ing a module.
 
-You will, however, need to install a different package: [ember-sprite](https://github.com/bguiz/ember-sprite).
+You will, however, need to install a different package:
+[ember-sprite](https://github.com/bguiz/ember-sprite).
 Look for a one-liner installation instruction there!
 
 ## Configuration Options
@@ -75,8 +76,14 @@ In an `ember-cli` app, this would most likely be `'public'`.
 
 ### `options`
 
-These options are passed into `node-sprite-generator`,
-so [follow the options specified here](https://github.com/selaux/node-sprite-generator#options "node-sprite-generator options"). You may also pass in `optiping`, which is read by [broccoli-sprite](https://github.com/bguiz/broccoli-sprite). If `true` then [optiping](http://optipng.sourceforge.net) compression will be applied to the generated sprites. This adds considerable build time, but may also drastically reduce your sprite file size.
+These options are passed into `node-sprite-generator`, so
+[follow the options specified here](https://github.com/selaux/node-sprite-generator#options "node-sprite-generator options").
+You may also pass in `optiping`, which is read by
+[broccoli-sprite](https://github.com/bguiz/broccoli-sprite).
+If `true`, then [optiping](http://optipng.sourceforge.net)
+compression will be applied to the generated sprites.
+This adds considerable build time,
+but can drastically reduce your sprite file size.
 
 There are a few things to note:
 
