@@ -1,6 +1,6 @@
 {
   "name": "broccoli-sprite",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "description": "Broccoli plugin for CSS image sprite generation",
   "main": "index.js",
   "scripts": {
@@ -35,12 +35,12 @@
   "homepage": "https://github.com/bguiz/broccoli-sprite",
   "dependencies": {
     "broccoli-caching-writer": "^0.4.2",
-    "broccoli-concat": "0.0.6",
     "broccoli-merge-trees": "^0.1.4",
     "broccoli-static-compiler": "^0.1.4",
     "lodash-node": "^2.4.1",
     "mkdirp": "~0.5.0",
-    "node-sprite-generator": "~0.8.0",
+    "node-sprite-generator": "~0.10.1",
+    "optipng": "^0.3.1",
     "rsvp": "^3.0.9"
   }
 }
