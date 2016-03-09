@@ -50,6 +50,9 @@ BroccoliSprite.prototype.updateCache = function(srcDir, destDir) {
   // Use proper deep cloning instead of
   // the lazy `JSON.parse(JSON.stringify(x))` way
   var nsgOptions = _cloneDeep(self.options);
+  nsgOptions.src = files;
+  nsgOptions.spritePath = spritePath;
+  nsgOptions.stylesheetPath = stylesheetPath;
   self.debugLog('Options: ', nsgOptions);
   self.debugLog('spritePath', spritePath);
   self.debugLog('stylesheetPath', stylesheetPath);
