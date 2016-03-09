@@ -5,7 +5,7 @@ var nodeSpriteGenerator = require('node-sprite-generator');
 var brocCachingWriter  = require('broccoli-caching-writer');
 var rsvp = require('rsvp');
 var optiPng = require('optipng');
-var _cloneDeep = require('lodahs.clonedeep');
+var _cloneDeep = require('lodash.clonedeep');
 
 var BroccoliSprite = function BroccoliSprite(inTree, options) {
   if (!(this instanceof BroccoliSprite)) {
