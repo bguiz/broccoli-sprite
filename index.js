@@ -5,6 +5,7 @@ var nodeSpriteGenerator = require('node-sprite-generator');
 var brocCachingWriter  = require('broccoli-caching-writer');
 var rsvp = require('rsvp');
 var optiPng = require('optipng');
+var _cloneDeep = require('lodahs.clonedeep');
 
 var BroccoliSprite = function BroccoliSprite(inTree, options) {
   if (!(this instanceof BroccoliSprite)) {
@@ -45,13 +46,14 @@ BroccoliSprite.prototype.updateCache = function(srcDir, destDir) {
   var stylesheetPath = path.join(destDir, self.options.stylesheetPath);
   mkdirp.sync(path.dirname(spritePath));
   mkdirp.sync(path.dirname(stylesheetPath));
-  var nsgOptions = JSON.parse(JSON.stringify(self.options)); //lazy way to deep clone
-  nsgOptions.src = files;
-  nsgOptions.spritePath = spritePath;
-  nsgOptions.stylesheetPath = stylesheetPath;
+
+  // Use proper deep cloning instead of
+  // the lazy `JSON.parse(JSON.stringify(x))` way
+  var nsgOptions = _cloneDeep(self.options);
   self.debugLog('Options: ', nsgOptions);
   self.debugLog('spritePath', spritePath);
   self.debugLog('stylesheetPath', stylesheetPath);
+
   var promise = new rsvp.Promise(function(resolvePromise, rejectPromise) {
     nodeSpriteGenerator(nsgOptions, function (err) {
         if (!err) {
