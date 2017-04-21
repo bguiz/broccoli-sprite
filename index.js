@@ -45,7 +45,7 @@ BroccoliSprite.prototype.updateCache = function(srcDir, destDir) {
   var stylesheetPath = path.join(destDir, self.options.stylesheetPath);
   mkdirp.sync(path.dirname(spritePath));
   mkdirp.sync(path.dirname(stylesheetPath));
-  var nsgOptions = JSON.parse(JSON.stringify(self.options)); //lazy way to deep clone
+  var nsgOptions = Object.assign({}, self.options);
   nsgOptions.src = files;
   nsgOptions.spritePath = spritePath;
   nsgOptions.stylesheetPath = stylesheetPath;
